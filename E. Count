@@ -16,7 +16,7 @@ int main()
 {
 	int i=0,j=0;
 	scanf("%s", c);
-	while(c[j++]!=0)
+	while(c[j++])
 		i+=c[j-1]-48;
 	printf("%d", i);
 	return 0;
