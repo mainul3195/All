@@ -1,0 +1,1 @@
+{"name":"Local: Seventh","url":"d:\\Cp Codes\\New folder\\Seventh.cpp","tests":[{"id":1690025972964,"input":"3 6\n1 2 3\n0 2 3 1\n1 1 3\n0 2 2 1\n1 1 3\n0 1 3 1\n1 1 2","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Cp Codes\\New folder\\Seventh.cpp","group":"local","local":true}

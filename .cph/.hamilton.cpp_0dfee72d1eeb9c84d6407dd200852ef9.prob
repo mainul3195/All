@@ -1,0 +1,1 @@
+{"name":"Local: hamilton","url":"d:\\New folder\\hamilton.cpp","tests":[{"id":1658330898814,"input":"7 8\n1 2\n1 3\n2 3\n2 4\n5 6\n4 5\n6 7\n4 7","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\New folder\\hamilton.cpp","group":"local","local":true}
