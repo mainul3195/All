@@ -1,59 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-void solve()
-{
-    long long ans = 0;
-    map<char, long long>mp;
-    string s;
-    cin >> s;
-    for(auto i: s)
-    {
-        mp[i]++;
-        ans += mp[i];
-    }
-    cout << ans*2 - s.size() << "\n";
-    return;
-}
 int main()
 {
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int t = 1;
-    // cin >> t;
-    while (t--)
-        solve();
+    int n, q;
+    cin >> n >> q;
+    vector<double> v(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        v[i] = v[i - 1] + log(x);
+    }
+    while (q--)
+    {
+        int l, r, p, m, k;
+        cin >> l >> r >> p >> m >> k;
+        double rhs = k * log(m);
+        int s = l, e = r - 1, mid, ans = -1;
+        while (s <= e)
+        {
+            mid = (s + e) / 2;
+            double lhs = (v[mid] - v[l - 1] - (v[r] - v[mid])) * p;
+            if (lhs >= rhs)
+            {
+                ans = mid;
+                e = mid - 1;
+            }
+            else
+                s = mid + 1;
+        }
+        if (ans == -1)
+            cout << "NO\n";
+        else
+        {
+            cout << "YES\n";
+            cout << ans << "\n";
+        }
+    }
     return 0;
 }
-
-/*
-gcd
-lcm
-modfact
-fact
-pfsingle
-pfmultiple
-ncrsingle
-ncrmod
-bgmod
-mdinverse
-sieve
-SegmentTree
-kmp
-bit
-sparseTable
-vll
-pi
-ll
-Pair
-all
-mll
-mii
-mis
-msi
-vvi
-vi
-pb
-inf
-linf
-*/

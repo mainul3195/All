@@ -1,72 +1,94 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 void solve()
 {
-    string s, tm, mn;
-    cin >> s;
-    set<string> st;
-    vector<int>v;
-    int n = s.size();
-    for(int i = 0; i<n; i++)
+    int n;
+    cin >> n;
+    vector<pair<int, int>> v(n);
+    vector<int> filled(n + 1, 1), ans(n * n + 1), low(n + 1, n * n + 1);
+    for (int i = 1; i <= n; i++)
     {
-        tm = "";
-        for(int j = i; j<n; j++)
+        cin >> v[i - 1].first;
+        v[i - 1].second = i;
+    }
+    sort(v.begin(), v.end());
+    int blocked = 0;
+    for (auto [pos, val] : v)
+    {
+        int available = pos - blocked;
+        if (available >= val)
         {
-            tm += s[j];
-            mn = tm;
-            int l = tm.size();
-            for(int i = 1; i<=l; i++)
-            {
-                string nw = tm.substr(l-i, i)+tm.substr(0, l-i);
-                // cout << nw << "\n";
-                mn = min(mn, nw);
-            }
-            // cout << mn << "\n\n";
-            st.insert(mn);
+            ans[pos] = val;
+            blocked += val;
+        }
+        else
+        {
+            cout << "No\n";
+            return;
         }
     }
-    cout << st.size() << "\n";
+    int last = n * n;
+    queue<pair<int, int>> q;
+    int val, remaining = 0;
+    vector<int> serial;
+    for (int i = 1; i <= last; i++)
+        if (ans[i])
+            serial.push_back(ans[i]);
+    int cur_elem = -1;
+    remaining = 0;
+    for (int i = 1; i <= last; i++)
+    {
+        if (ans[i])
+            continue;
+        if (!remaining)
+        {
+            cur_elem++;
+            if (cur_elem < serial.size() && serial[cur_elem] == 1)
+                cur_elem++;
+            if (cur_elem >= serial.size())
+                continue;
+            remaining = serial[cur_elem] - 1;
+        }
+        ans[i] = serial[cur_elem], remaining--;
+    }
+    reverse(serial.begin(), serial.end());
+    cur_elem = -1;
+    for (int i = last; i > 0; i--)
+    {
+        if (ans[i])
+        {
+            continue;
+        }
+        if (!remaining)
+        {
+            cur_elem++;
+            if (cur_elem < serial.size() && serial[cur_elem] == n)
+                cur_elem++;
+            if (cur_elem >= serial.size())
+                continue;
+            remaining = n - serial[cur_elem];
+        }
+        ans[i] = serial[cur_elem], remaining--, low[serial[cur_elem]] = i;
+    }
+    for (auto [pos, val] : v)
+    {
+        if (pos > low[val])
+        {
+            cout << "No\n";
+            return;
+        }
+    }
+    cout << "Yes\n";
+    for (int i = 1; i <= last; i++)
+        cout << ans[i] << " ";
+    cout << "\n";
     return;
 }
-int main()
+int32_t main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int t = 1;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
     return 0;
 }
-
-/*
-gcd
-lcm
-modfact
-fact
-pfsingle
-pfmultiple
-ncrsingle
-ncrmod
-bgmod
-mdinverse
-sieve
-SegmentTree
-kmp
-bit
-sparseTable
-vll
-pi
-ll
-Pair
-all
-mll
-mii
-mis
-msi
-vvi
-vi
-pb
-inf
-linf
-*/
